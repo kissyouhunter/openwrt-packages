@@ -1,6 +1,6 @@
 FORK FROM
 
-kenzok8, lua-maxminddb, luci-app-adguardhome, luci-app-vssr
+kenzok8, lua-maxminddb, luci-app-adguardhome, luci-app-vssr, luci-app-smartdns
 
 esirplayground, luci-app-poweroff
 
