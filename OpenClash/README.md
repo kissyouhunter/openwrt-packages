@@ -52,7 +52,6 @@
 * coreutils-nohup
 * bash
 * curl
-* jsonfilter
 * ca-certificates
 * ipset
 * ip-full
@@ -189,4 +188,3 @@ make menuconfig
 <p align="center">
     <img src="https://github.com/vernesong/OpenClash/raw/master/img/log.png">
 </p>
-
