@@ -107,12 +107,9 @@ define Build/Compile
 		. ../init_env.sh "$(ARCH)" $(CPU_TYPE) $(CPU_SUBTYPE) "$(TOOLCHAIN_DIR)" ; \
 		export naive_flags+=" $$$${naive_ccache_flags}" ; \
 		mkdir -p "out" ; \
-		./gn/out/gn gen "out/Release" --args="$$$${naive_flags}" --script-executable="$(STAGING_DIR_HOSTPKG)/bin/python3" ; \
+		./gn/out/gn gen "out/Release" --args="$$$${naive_flags}" --script-executable="$(PYTHON)" ; \
 	)
 	+$(NINJA) -C "$(PKG_BUILD_DIR)/src/out/Release" naive
-endef
-
-define Package/naiveproxy/conffiles
 endef
 
 define Package/naiveproxy/install
