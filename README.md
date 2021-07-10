@@ -20,4 +20,4 @@ sirpdboy, luci-app-netdata, luci-app-netspeedtest; https://github.com/sirpdboy/s
 
 Leo-Jo-My, luci-theme-Butterfly, luci-theme-Butterfly-dark; https://github.com/Leo-Jo-My
 
-jerrykuku, luci-app-jd-dailybon; https://github.com/jerrykuku/luci-app-jd-dailybonus
+jerrykuku, luci-app-jd-dailybonus; https://github.com/jerrykuku/luci-app-jd-dailybonus
