@@ -16,7 +16,7 @@ xiaorouji, openwrt-passwall; https://github.com/xiaorouji/openwrt-passwall
 
 lisaac, luci-app-dockerman, luci-lib-docker; https://github.com/lisaac
 
-sirpdboy, luci-app-netdata, luci-app-netspeedtest; https://github.com/sirpdboy/sirpdboy-package
+sirpdboy, luci-app-netdata, luci-app-netspeedtest, luci-app-cpulimit; https://github.com/sirpdboy/sirpdboy-package
 
 Leo-Jo-My, luci-theme-Butterfly, luci-theme-Butterfly-dark; https://github.com/Leo-Jo-My
 
