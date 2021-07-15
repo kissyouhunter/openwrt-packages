@@ -79,8 +79,8 @@ define Build/Compile
 endef
 
 define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(UNTAR_DIR)/*/$(PROJECT_NAME) $(1)/usr/bin/$(PROJECT_NAME)
+	$(INSTALL_DIR) $(1)/usr/bin/AdGuardHome
+	$(INSTALL_BIN) $(UNTAR_DIR)/*/$(PROJECT_NAME) $(1)/usr/bin/AdGuardHome/$(PROJECT_NAME)
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
