@@ -1,4 +1,4 @@
-FORK FROM
+# FORK FROM
 
 kenzok8, lua-maxminddb, luci-app-adguardhome, luci-app-vssr, luci-app-smartdns; https://github.com/kenzok8/openwrt-packages
 
