@@ -14,7 +14,7 @@ web_session_ttl: 720
 dns:
   bind_hosts:
   - 0.0.0.0
-  port: 5553
+  port: 1053
   statistics_interval: 7
   querylog_enabled: true
   querylog_file_enabled: true
@@ -32,18 +32,22 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-  - tls://dns.pub
+  - tls://dot.pub
+  - https://doh.pub/dns-query
   - https://dns.pub/dns-query
-  - tls://dns.alidns.com
-  - https://dns.alidns.com/dns-query
+  - https://sm2.doh.pub/dns-query
+  - tls://rubyfish.cn
+  - https://rubyfish.cn/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
+  - 218.2.2.2
+  - 218.4.4.4
   - 119.29.29.29
   - 223.5.5.5
   - 180.76.76.76
   - 114.114.114.114
   - 114.114.115.115
-  all_servers: true
+  all_servers: false
   fastest_addr: false
   allowed_clients: []
   disallowed_clients: []
