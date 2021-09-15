@@ -26,20 +26,18 @@ local f=luci.sys.exec("grep -v !x /usr/share/koolproxy/data/rules/anti-ad.txt | 
 local i=luci.sys.exec("cat /usr/share/koolproxy/dnsmasq.adblock | wc -l")
 
 
-if luci.sys.call("pidof koolproxy >/dev/null") == 0 then
-	status = translate("<strong class=\"koolproxy_status\"><font color=\"green\">GodProxy滤广告  运行中</font></strong>")
-else
-	status = translate("<strong class=\"koolproxy_status\"><font color=\"red\">GodProxy滤广告  未运行</font></strong>")
-end
 
-o = Map("koolproxy", translate("GodProxy滤广告 "), translate("GodProxy是基于KoolProxyR Plus重新整理的能识别adblock规则的免费开源软件,追求体验更快、更清洁的网络，屏蔽烦人的广告！"))
+o = Map("koolproxy", "<font color='green'>" .. translate("KoolproxyR Plus+") .."</font>",     "<font color='purple'>" .. translate( "广告过滤大师 Plus+是能识别Adblock规则的广告屏蔽软件，可以过滤网页广告、视频广告、HTTPS广告") .."</font>")
+o.template = "koolproxy/index"
 
-o.template="koolproxy/koolproxy_status"
 t = o:section(TypedSection, "global")
 t.anonymous = true
-t.description = translate(string.format("%s<br /><br />", status))
 
 t:tab("base",translate("Basic Settings"))
+
+e = t:taboption("base",DummyValue, "koolproxy_status", translate("Status"))
+e.template="koolproxy/dvalue"
+e.value = translate("Collecting data...")
 
 e = t:taboption("base", Flag, "enabled", translate("Enable"))
 e.default = 0
@@ -122,7 +120,7 @@ end
 e:value(nil, translate("关闭"))
 e.default = 0
 e.rmempty = false
-e.description = translate(string.format("<font color=\"red\"><strong>定时更新规则。请把时间修改掉，默认时间使用人数多会更新失败</strong></font>"))
+e.description = translate(string.format("<font color=\"red\"><strong>定时更新订阅规则与Adblock Plus Hosts</strong></font>"))
 
 e = t:taboption("base", Button, "restart", translate("规则状态"))
 e.inputtitle = translate("更新规则")
@@ -132,8 +130,8 @@ e.write = function()
 	luci.http.redirect(luci.dispatcher.build_url("admin","services","koolproxy"))
 end
 e.description = translate(string.format("<font color=\"red\"><strong>更新订阅规则与Adblock Plus Hosts</strong></font><br /><font color=\"green\">ABP规则: %s条<br />Fanboy规则: %s条<br />Yhosts规则: %s条<br />Anti-AD规则: %s条<br />静态规则: %s条<br />视频规则: %s<br />乘风视频: %s条<br />每日规则: %s条<br />自定义规则: %s条<br />Host: %s条</font><br />", s, u, p, f, l, b, m, q, h, i))
-t:tab("cert",translate("Certificate Management"))
 
+t:tab("cert",translate("Certificate Management"))
 e=t:taboption("cert",DummyValue,"c1status",translate("<div align=\"left\"><strong>证书恢复</strong></div>"))
 e=t:taboption("cert",FileUpload,"")
 e.template="koolproxy/caupload"
@@ -298,7 +296,7 @@ end
 function e.write(self, section, value)
 end
 
-t=o:section(TypedSection,"acl_rule",translate("GodProxy 访问控制"),
+t=o:section(TypedSection,"acl_rule",translate("访问控制"),
 translate("ACLs is a tools which used to designate specific IP filter mode,The MAC addresses added to the list will be filtered using https"))
 t.template="cbi/tblsection"
 t.sortable=true
@@ -333,7 +331,7 @@ e:value(1,translate("过滤 HTTP"))
 e:value(2,translate("过滤HTTP + HTTPS"))
 e:value(3,translate("过滤全端口"))
 
-t=o:section(TypedSection,"rss_rule",translate("GodProxy 规则订阅"), translate("请确保订阅规则的兼容性"))
+t=o:section(TypedSection,"rss_rule",translate("广告过滤规则订阅"), translate("请确保订阅规则的兼容性"))
 t.anonymous=true
 t.addremove=true
 t.sortable=true
@@ -403,7 +401,7 @@ function(o,a,i)
 end
 )
 
-t=o:section(TypedSection,"usetips",translate("GodProxy 帮助支持"))
+t=o:section(TypedSection,"rss_rules",translate("技术支持"))
 t.anonymous = true
 t:append(Template("koolproxy/feedback"))
 return o
