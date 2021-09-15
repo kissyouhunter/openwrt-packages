@@ -9,6 +9,7 @@ config global
 	option thirdparty_rules 'anti-ad.txt'
 	option enabled '0'
 	option koolproxy_ipv6 '0'
+	
 config acl_rule
 	option proxy_mode '2'
 	option remarks '选要滤https的客户端'
