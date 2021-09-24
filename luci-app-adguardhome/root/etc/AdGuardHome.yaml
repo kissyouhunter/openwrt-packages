@@ -47,7 +47,7 @@ dns:
   - 180.76.76.76
   - 114.114.114.114
   - 114.114.115.115
-  all_servers: false
+  all_servers: true
   fastest_addr: false
   allowed_clients: []
   disallowed_clients: []
@@ -95,34 +95,26 @@ tls:
   private_key_path: ""
 filters:
 - enabled: true
-  url: https://easylist-downloads.adblockplus.org/easylistchina+easylist.txt
-  name: easylistchina+easylist
-  id: 1613813149
-- enabled: true
   url: https://easylist-downloads.adblockplus.org/easyprivacy.txt
   name: easyprivacy
   id: 1613813150
-- enabled: true
+- enabled: false
   url: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-ublock.txt
   name: cjx-ublock
   id: 1613813151
 - enabled: true
   url: https://anti-ad.net/easylist.txt
-  name: anti-ad
+  name: anti-AD命中率最高列表
   id: 1613813152
-- enabled: true
+- enabled: false
   url: https://adaway.org/hosts.txt
   name: AdAway
   id: 1613813153
-- enabled: true
+- enabled: false
   url: https://gitee.com/xinggsf/Adblock-Rule/raw/master/rule.txt
   name: rule  乘风 广告
   id: 1613813154
-- enabled: true
-  url: https://gitee.com/xinggsf/Adblock-Rule/raw/master/mv.txt
-  name: 乘风 视频
-  id: 1613813155
-- enabled: true
+- enabled: false
   url: https://www.i-dont-care-about-cookies.eu/abp/
   name: I don't care about cookies
   id: 1613813157
@@ -130,7 +122,7 @@ filters:
   url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
   name: AdGuard DNS filter
   id: 1614422613
-- enabled: true
+- enabled: false
   url: https://cdn.jsdelivr.net/gh/neoFelhz/neohosts@gh-pages/basic/hosts.txt
   name: neoHosts basic
   id: 1614422616
@@ -138,7 +130,7 @@ filters:
   url: https://raw.githubusercontent.com/Goooler/1024_hosts/master/hosts
   name: 1024host
   id: 1614422618
-- enabled: true
+- enabled: false
   url: https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker
   name: NEO DEV HOST
   id: 1614422621
@@ -154,55 +146,33 @@ filters:
   url: https://easylist-downloads.adblockplus.org/antiadblockfilters.txt
   name: Adblock Warning Removal List 去除禁止广告拦截提示规则
   id: 1618457842
+- enabled: true
+  url: http://sub.adtchrome.com/adt-chinalist-easylist.txt
+  name: 广告终结者使用的拦截规则，基于ChinaList+EasyList修正维护
+  id: 1631973285
+- enabled: true
+  url: https://easylist-downloads.adblockplus.org/easylist.txt
+  name: EasyList-去除国际网页中大多数广告，包括不需要的框架、图像和对象
+  id: 1631973286
+- enabled: true
+  url: https://easylist-downloads.adblockplus.org/easylistchina.txt
+  name: EasyList China-EasyList针对国内的补充规则
+  id: 1631973287
+- enabled: true
+  url: https://gitee.com/halflife/list/raw/master/ad.txt
+  name: halflife合并乘风
+  id: 1631973289
+- enabled: true
+  url: https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/all.txt
+  name: 百万ADH广告拦截过滤规则
+  id: 1631973290
+- enabled: true
+  url: https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Hosts/GoodbyeAds-Ultra.txt
+  name: GoodbyeAds 大全去广告
+  id: 1631973291
 whitelist_filters: []
 user_rules:
-- '@@||rarbgunblocked.org^$important'
-- /assistant.tv.mi.com/
-- /redirect.pandora.xiaomi.com/
-- /file.xmpush.xiaomi.com/
-- /assistant.pandora.xiaomi.com/
-- /api.io.mi.com/
-- /lbs.pandora.xiaomi.com/
-- /cn.app.chat.xiaomi.net/
-- /ot.io.mi.com/
-- /broker.mqtt.pandora.xiaomi.com/
-- /assistant.sys.tv.mi.com/
-- /api.ai.xiaomi.com/
-- /port.sec.miui.com/
-- /ad.xiaomi.com/
-- /ad1.xiaomi.com/
-- /ad.mi.com/
-- /tat.pandora.xiaomi.com/
-- /stat.pandora.xiaomi.com/
-- /mishop.pandora.xiaomi.com/
-- /upgrade.mishop.pandora.xiaomi.com/
-- /dvb.pandora.xiaomi.com/
-- /de.pandora.xiaomi.com/
-- /jellyfish.pandora.xiaomi.com/
-- /gallery.pandora.xiaomi.com/
-- /bss.pandora.xiaomi.com/
-- /data.mistat.xiaomi.com/
-- /o2o.api.xiaomi.com/
-- /gvod.aiseejapp.atianqi.com/
-- /milink.pandora.xiaomi.com/
-- /weatherapi.market.xiaomi.com/
-- /shop.pandora.xiaomi.com/
-- /pandora.mi.com/
-- /open.account.xiaomi.com/
-- /ott.io.mi.com/
-- /app.chat.xiaomi.net/
-- '||t7z.cupid.ptqy.gitv.tv^$important'
-- '@@||g.live.com^$important'
-- '@@||s.click.taobao.com^$important'
-- '@@||dg.k.jd.com^$important'
-- '@@||jd.com^$important'
-- '@@||isub.snssdk.com^$important'
-- '@@||snssdk.com^$important'
-- '@@||toutiao.com^$important'
-- '@@||ctobsnssdk.com^$important'
-- '@@||pangolin-sdk-toutiao.com^$important'
-- '@@||umeng.com^$important'
-- '@@||umengcloud.com^$important'
+- ""
 dhcp:
   enabled: false
   interface_name: ""
