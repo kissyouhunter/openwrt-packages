@@ -170,6 +170,7 @@ filters:
   id: 1631973291
 whitelist_filters: []
 user_rules:
+- '@@||open.zuimeiread.com^$important'
 - '@@||rarbgunblocked.org^$important'
 - /assistant.tv.mi.com/
 - /redirect.pandora.xiaomi.com/
