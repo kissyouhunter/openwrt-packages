@@ -17,7 +17,6 @@ config smartdns
 	option rr_ttl_max '3600'
 	option seconddns_port '7913'
 	option server_name 'SmartDNS'
-	option enabled '1'
 	option rr_ttl '5'
 	option dualstack_ip_selection '1'
 	option redirect 'dnsmasq-upstream'
@@ -26,7 +25,7 @@ config smartdns
 	option serve_expired '1'
 	list old_redirect 'dnsmasq-upstream'
 	list old_port '6053'
-	list old_enabled '1'
+	list old_enabled '0'
 
 config server
 	option enabled '1'
