@@ -178,7 +178,7 @@ __load_exrule() {
 		fi
 
 		if [ ! -f $KP_DIR/data/rules/$file ]; then
-			wget-ssl --quiet --timeout=5 --no-check-certificate $exrule -O $TMP_DIR/$file
+			wget $exrule -q -O $TMP_DIR/$file
 			if [ "$?" == "0" ]; then
 				uci set koolproxy.$1.time="`date +%Y-%m-%d" "%H:%M`"
 				uci commit koolproxy
@@ -247,10 +247,10 @@ get_mode_name() {
 			echo "不过滤"
 		;;
 		1)
-			echo "过滤 HTTP"
+			echo "过滤HTTP协议"
 		;;
 		2)
-			echo "过滤HTTP + HTTPS"
+			echo "过滤HTTP(S)协议"
 		;;
 		3)
 			echo "过滤全端口"
@@ -430,7 +430,6 @@ start_service() {
 	procd_set_param command /usr/share/koolproxy/koolproxy
 	procd_append_param command --mark
 	procd_append_param command --ttl 160
-	procd_append_param command --ipv6
 
 	procd_set_param respawn
 
