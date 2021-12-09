@@ -1,6 +1,6 @@
 # FORK FROM
 
-kenzok8, lua-maxminddb, luci-app-adguardhome, luci-app-vssr, luci-app-smartdns; https://github.com/kenzok8/openwrt-packages
+kenzok8, lua-maxminddb, luci-app-adguardhome, luci-app-vssr, luci-app-smartdns, luci-app-store; https://github.com/kenzok8/openwrt-packages
 
 esirplayground, luci-app-poweroff; https://github.com/esirplayground/luci-app-poweroff
 
