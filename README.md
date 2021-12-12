@@ -1,23 +1,23 @@
 # FORK FROM
 
-kenzok8, lua-maxminddb, luci-app-adguardhome, luci-app-vssr, luci-app-smartdns, luci-app-store; https://github.com/kenzok8/openwrt-packages
+[kenzok8](https://github.com/kenzok8/openwrt-packages), lua-maxminddb, luci-app-adguardhome, luci-app-vssr, luci-app-smartdns, luci-app-store; 
 
-esirplayground, luci-app-poweroff; https://github.com/esirplayground/luci-app-poweroff
+[esirplayground](https://github.com/esirplayground/luci-app-poweroff), luci-app-poweroff; 
 
-KFERMercer, luci-app-smartinfo; https://github.com/KFERMercer/OpenWrt/tree/master/package/kferm
+[KFERMercer](https://github.com/KFERMercer/OpenWrt/tree/master/package/kferm), luci-app-smartinfo;
 
-WoChen5770, AdGuardHome; https://github.com/WoChen5770/AdGuardHome
+[Chen5770](https://github.com/WoChen5770/AdGuardHome), AdGuardHome; 
 
-vernesong, OpenClash ;https://github.com/vernesong/OpenClash
+[vernesong](https://github.com/vernesong/OpenClash), OpenClash ;
 
-fw876, helloworld; https://github.com/fw876/helloworld
+[fw876](https://github.com/fw876/helloworld), helloworld; 
 
-xiaorouji, openwrt-passwall; https://github.com/xiaorouji/openwrt-passwall
+[xiaorouji](https://github.com/xiaorouji/openwrt-passwall), openwrt-passwall; 
 
-lisaac, luci-app-dockerman, luci-lib-docker; https://github.com/lisaac
+[lisaac](https://github.com/lisaac), luci-app-dockerman, luci-lib-docker; 
 
-sirpdboy, luci-app-netdata, luci-app-netspeedtest, luci-app-cpulimit; https://github.com/sirpdboy/sirpdboy-package
+[sirpdboy](https://github.com/sirpdboy/sirpdboy-package), luci-app-netdata, luci-app-netspeedtest, luci-app-cpulimit; 
 
-Leo-Jo-My, luci-theme-Butterfly, luci-theme-Butterfly-dark; https://github.com/Leo-Jo-My
+[Leo-Jo-My](https://github.com/Leo-Jo-My), luci-theme-Butterfly, luci-theme-Butterfly-dark; 
 
-jerrykuku, luci-app-jd-dailybonus; https://github.com/jerrykuku/luci-app-jd-dailybonus
+[jerrykuku](https://github.com/jerrykuku/luci-app-jd-dailybonus), luci-app-jd-dailybonus; 
