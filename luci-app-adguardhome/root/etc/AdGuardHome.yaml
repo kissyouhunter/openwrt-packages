@@ -38,6 +38,8 @@ dns:
   - https://sm2.doh.pub/dns-query
   - tls://rubyfish.cn
   - https://rubyfish.cn/dns-query
+  - tls://dns.google
+  - https://1.1.1.1/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
   - 119.29.29.29
