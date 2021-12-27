@@ -1,6 +1,6 @@
 # FORK FROM
 
-[kenzok8](https://github.com/kenzok8/openwrt-packages), lua-maxminddb, luci-app-adguardhome, luci-app-vssr, luci-app-smartdns, luci-app-store; 
+[kenzok8](https://github.com/kenzok8/openwrt-packages), lua-maxminddb, luci-app-adguardhome, luci-app-vssr, luci-app-smartdns; 
 
 [esirplayground](https://github.com/esirplayground/luci-app-poweroff), luci-app-poweroff; 
 
@@ -21,3 +21,5 @@
 [Leo-Jo-My](https://github.com/Leo-Jo-My), luci-theme-Butterfly, luci-theme-Butterfly-dark; 
 
 [jerrykuku](https://github.com/jerrykuku/luci-app-jd-dailybonus), luci-app-jd-dailybonus; 
+
+[易有云团队](https://github.com/linkease/istore), luci-app-store; 
