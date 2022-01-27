@@ -32,14 +32,14 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-  - tls://dot.pub
   - https://doh.pub/dns-query
-  - https://dns.pub/dns-query
-  - https://sm2.doh.pub/dns-query
-  - tls://rubyfish.cn
-  - https://rubyfish.cn/dns-query
+  - https://dns.alidns.com/dns-query
+  - https://dns.cloudflare.com/dns-query
   - tls://dns.google
-  - https://1.1.1.1/dns-query
+  - https://public.dns.iij.jp/dns-query
+  - tls://dot.tiar.app
+  - https://jp.tiar.app/dns-query
+  - https://jp.tiarap.org/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
   - 119.29.29.29
@@ -94,15 +94,15 @@ tls:
   certificate_path: ""
   private_key_path: ""
 filters:
-- enabled: true
+- enabled: false
   url: https://easylist-downloads.adblockplus.org/easyprivacy.txt
   name: easyprivacy
   id: 1613813150
 - enabled: false
-  url: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-ublock.txt
+  url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-ublock.txt
   name: cjx-ublock
   id: 1613813151
-- enabled: true
+- enabled: false
   url: https://anti-ad.net/easylist.txt
   name: anti-AD命中率最高列表
   id: 1613813152
@@ -118,7 +118,7 @@ filters:
   url: https://www.i-dont-care-about-cookies.eu/abp/
   name: I don't care about cookies
   id: 1613813157
-- enabled: true
+- enabled: false
   url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
   name: AdGuard DNS filter
   id: 1614422613
@@ -126,48 +126,48 @@ filters:
   url: https://cdn.jsdelivr.net/gh/neoFelhz/neohosts@gh-pages/basic/hosts.txt
   name: neoHosts basic
   id: 1614422616
-- enabled: true
-  url: https://raw.githubusercontent.com/Goooler/1024_hosts/master/hosts
+- enabled: false
+  url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Goooler/1024_hosts/master/hosts
   name: 1024host
   id: 1614422618
 - enabled: false
-  url: https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker
+  url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker
   name: NEO DEV HOST
   id: 1614422621
-- enabled: true
+- enabled: false
   url: https://banbendalao.coding.net/p/adgk/d/ADgk/git/raw/master/ADgk.txt
   name: adgk AdGuard for Android 手机去广告规则
   id: 1618457840
-- enabled: true
+- enabled: false
   url: https://cdn.jsdelivr.net/gh/o0HalfLife0o/list@master/ad.txt
   name: halflife
   id: 1618457841
-- enabled: true
+- enabled: false
   url: https://easylist-downloads.adblockplus.org/antiadblockfilters.txt
   name: Adblock Warning Removal List 去除禁止广告拦截提示规则
   id: 1618457842
-- enabled: true
+- enabled: false
   url: http://sub.adtchrome.com/adt-chinalist-easylist.txt
   name: 广告终结者使用的拦截规则，基于ChinaList+EasyList修正维护
   id: 1631973285
-- enabled: true
+- enabled: false
   url: https://easylist-downloads.adblockplus.org/easylist.txt
   name: EasyList-去除国际网页中大多数广告，包括不需要的框架、图像和对象
   id: 1631973286
-- enabled: true
+- enabled: false
   url: https://easylist-downloads.adblockplus.org/easylistchina.txt
   name: EasyList China-EasyList针对国内的补充规则
   id: 1631973287
-- enabled: true
+- enabled: false
   url: https://gitee.com/halflife/list/raw/master/ad.txt
   name: halflife合并乘风
   id: 1631973289
-- enabled: true
+- enabled: false
   url: https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/all.txt
   name: 百万ADH广告拦截过滤规则
   id: 1631973290
-- enabled: true
-  url: https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Hosts/GoodbyeAds-Ultra.txt
+- enabled: false
+  url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Hosts/GoodbyeAds-Ultra.txt
   name: GoodbyeAds 大全去广告
   id: 1631973291
 whitelist_filters: []
