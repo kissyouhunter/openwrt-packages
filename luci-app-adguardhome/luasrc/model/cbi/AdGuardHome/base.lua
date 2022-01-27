@@ -35,10 +35,10 @@ if not fs.access(binpath) then
 	e=e.." "..translate("no core")
 else
 	local version=uci:get("AdGuardHome","AdGuardHome","version")
-	 local tmp=luci.sys.exec(binpath.." --version  2>/dev/null | grep -m 1 -E '[0-9]+[.][0-9.]+' -o")
 	local testtime=fs.stat(binpath,"mtime")
-	if testtime~=tonumber(binmtime) or version==nil or version ~=tmp then
-		version=string.sub(tmp, 1, -2)
+	if testtime~=tonumber(binmtime) or version==nil then
+		local tmp=luci.sys.exec(binpath.." --version | grep -m 1 -E 'v[0-9.]+' -o ")
+		version=string.sub(tmp, 1)
 		if version=="" then version="core error" end
 		uci:set("AdGuardHome","AdGuardHome","version",version)
 		uci:set("AdGuardHome","AdGuardHome","binmtime",testtime)
@@ -81,7 +81,7 @@ if fs.stat(value,"type")=="dir" then
 	m.message ="error!bin path is a dir"
 	end
 	return nil
-end 
+end
 return value
 end
 --- upx
@@ -113,7 +113,7 @@ if fs.stat(value,"type")=="dir" then
 	m.message ="error!config path is a dir"
 	end
 	return nil
-end 
+end
 return value
 end
 ---- work dir
@@ -131,7 +131,7 @@ if fs.stat(value,"type")=="reg" then
 	m.message ="error!work dir is a file"
 	end
 	return nil
-end 
+end
 if string.sub(value, -1)=="/" then
 	return string.sub(value, 1, -2)
 else
@@ -153,7 +153,7 @@ if fs.stat(value,"type")=="dir" then
 	m.message ="error!log file is a dir"
 	end
 	return nil
-end 
+end
 return value
 end
 ---- debug
@@ -245,7 +245,7 @@ if fs.stat(value,"type")=="reg" then
 	m.message ="error!backup dir is a file"
 	end
 	return nil
-end 
+end
 if string.sub(value,-1)=="/" then
 	return string.sub(value, 1, -2)
 else
