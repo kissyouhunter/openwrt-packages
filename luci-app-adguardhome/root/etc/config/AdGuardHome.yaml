@@ -34,12 +34,12 @@ dns:
   upstream_dns:
   - https://doh.pub/dns-query
   - https://dns.alidns.com/dns-query
+  - https://1.12.12.12/dns-query
+  - https://120.53.53.53/dns-query
+  - https://dns.rubyfish.cn/dns-query
   - https://dns.cloudflare.com/dns-query
   - tls://dns.google
-  - https://public.dns.iij.jp/dns-query
-  - tls://dot.tiar.app
-  - https://jp.tiar.app/dns-query
-  - https://jp.tiarap.org/dns-query
+  - https://dns.google/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
   - 119.29.29.29
