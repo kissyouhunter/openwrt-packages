@@ -21,6 +21,8 @@ CONFIG_UDP_FILE=/var/etc/${NAME}_u.json
 CONFIG_SOCK5_FILE=/var/etc/${NAME}_s.json
 CRON_FILE=/etc/crontabs/root
 
+LOCK_FILE=/var/lock/vssr.lock
+
 #定义可执行文件路径
 VSSR_RULES_BIN=/usr/bin/vssr-rules
 
@@ -38,6 +40,30 @@ shunt_enable=0
 switch_server=$1
 MAXFD=32768
 threads=1
+
+set_lock() {
+	exec 1000>"$LOCK_FILE"
+	flock -xn 1000
+}
+
+unset_lock() {
+	flock -u 1000
+	rm -rf "$LOCK_FILE"
+}
+
+unlock() {
+	failcount=1
+	while [ "$failcount" -le 10 ]; do
+		if [ -f "$LOCK_FILE" ]; then
+            echo "$(date "+%Y-%m-%d %H:%M:%S") wait for file unlock: $failcount count" >> /tmp/vssr.log
+			let "failcount++"
+			sleep 1s
+			[ "$failcount" -ge 10 ] && unset_lock
+		else
+			break
+		fi
+	done
+}
 
 
 #读取 uci 数据
@@ -64,6 +90,7 @@ find_bin() {
     ssr-server) ret="ssr-server" ;;
     v2ray | vless) ret="xray" ;;
     trojan) ret="trojan" ;;
+    hysteria) ret="hysteria" ;;
     esac
     echo $(find /usr -perm /+x -type f -name $ret)
 }
@@ -214,13 +241,14 @@ start_rules() {
         router) gfwmode="-r" ;;
         oversea) gfwmode="-c" ;;
         all) gfwmode="-z" ;;
+        direct) gfwmode="-d" ;;
     esac
 
-    local dports=$(uci_get_by_type global dports 1)
-    if [ $dports = "1" ]; then
+    local dports=$(uci_get_by_type global dports)
+    if [[ -z $dports ]]; then
         proxyport=" "
     else
-        proxyport="-m multiport --dports 22,53,587,465,995,993,143,80,443,9418"
+        proxyport="-m multiport --dports $dports"
     fi
 
     $VSSR_RULES_BIN \
@@ -284,7 +312,7 @@ start_pdnsd() {
 			purge_cache=off;
 			}
 		EOF
-    /usr/sbin/pdnsd -c /var/etc/pdnsd.conf -d
+    /usr/sbin/pdnsd -c /var/etc/pdnsd.conf &
 }
 
 
@@ -326,10 +354,20 @@ start_shunt() {
             ss | ssr)
                 bin=$(find_bin "ss-local")
                 [ "$server_type" == "ssr" ] && bin=$(find_bin "ssr-local")
-                $bin -c $config_file $ARG_OTA -f /var/run/vssr-${shunt_type}.pid1 >/dev/null 2>&1
+
+                g_threads=$threads
+                if [ "$shunt_type" != "global" ]; then
+                    g_threads=1
+                fi
+                for i in $(seq 1 $g_threads); do
+                    $bin -c $config_file $ARG_OTA -f /var/run/vssr-${shunt_type}.pid$i >/dev/null 2>&1
+                done
                 ;;
             trojan)
                 $bin --config $config_file >/dev/null 2>&1 &
+                ;;
+            hysteria)
+                $bin -c $config_file >/dev/null 2>&1 &
                 ;;
             esac
             echo "$(date "+%Y-%m-%d %H:%M:%S") ${shunt_type}: $server_type 分流服务已启动!" >>/tmp/vssr.log
@@ -366,8 +404,6 @@ start_redir() {
     local stype=$(uci_get_by_name $GLOBAL_SERVER type)
     sscmd=$(find_bin $stype)
 
-    
-
     if [ "$(uci_get_by_type global threads 0)" = "0" ]; then
         threads=$(cat /proc/cpuinfo | grep 'processor' | wc -l)
     else
@@ -391,6 +427,10 @@ start_redir() {
         v2ray | vless)
             $sscmd -config $last_config_file >/dev/null 2>&1 &
             echo "$(date "+%Y-%m-%d %H:%M:%S") $($sscmd -version | head -1) 已启动!" >>/tmp/vssr.log
+            ;;
+        hysteria)
+            $sscmd -c $last_config_file >/dev/null 2>&1 &
+            echo "$(date "+%Y-%m-%d %H:%M:%S") $($sscmd -v | head -1) 已启动!" >>/tmp/vssr.log
             ;;
         trojan)
             for i in $(seq 1 $threads); do
@@ -433,6 +473,10 @@ start_redir() {
         v2ray | vless)
             $ucmd -config $last_config_file >/dev/null 2>&1 &
             echo "$(date "+%Y-%m-%d %H:%M:%S") UDP TPROXY Relay: $($sscmd -version | head -1) 已启动!" >>/tmp/vssr.log
+            ;;
+        hysteria)
+            $ucmd -c $last_config_file >/dev/null 2>&1 &
+            echo "$(date "+%Y-%m-%d %H:%M:%S") UDP TPROXY Relay: $($sscmd -v | head -1) 已启动!" >>/tmp/vssr.log
             ;;
         trojan)
             $ucmd --config $last_config_file >/dev/null 2>&1 &
@@ -568,6 +612,7 @@ rules() {
 }
 
 start() {
+    set_lock
     if [ -z "$switch_server" ]; then
         GLOBAL_SERVER=$(uci_get_by_type global global_server)
     else
@@ -583,7 +628,13 @@ start() {
                 rm -rf /tmp/dnsmasq.oversea
             fi
             mkdir -p /tmp/dnsmasq.d
-            if ! [ "$run_mode" = "oversea" ]; then
+            if [ "$run_mode" = "direct" ]; then
+                mkdir -p /tmp/dnsmasq.ssr
+                cp -rf /etc/vssr/ad.conf /tmp/dnsmasq.ssr/
+                cat >/tmp/dnsmasq.d/dnsmasq-ssr.conf <<EOF
+conf-dir=/tmp/dnsmasq.ssr
+EOF
+            elif ! [ "$run_mode" = "oversea" ]; then
                 mkdir -p /tmp/dnsmasq.ssr
                 cp -rf /etc/vssr/gfw_list.conf /tmp/dnsmasq.ssr/
                 cp -rf /etc/vssr/gfw_base.conf /tmp/dnsmasq.ssr/
@@ -621,6 +672,8 @@ EOF
         fi
     fi
 
+    unset_lock
+
     ENABLE_SERVER=$(uci_get_by_type global global_server)
     [ "$ENABLE_SERVER" = "nil" ] && return 1
 }
@@ -630,6 +683,9 @@ boot() {
 }
 
 stop() {
+    unlock
+	set_lock
+
     echo "stop"
     /usr/bin/vssr-rules -f
     srulecount=$(iptables -L | grep SSR-SERVER-RULE | wc -l)
@@ -644,11 +700,13 @@ stop() {
     if [ $(uci_get_by_type global monitor_enable) = 1 ]; then
         kill -9 $(busybox ps -w | grep vssr-monitor | grep -v grep | awk '{print $1}') >/dev/null 2>&1
     fi
-    killall -q -9 ss-redir ss-local obfs-local ssr-redir ssr-local ssr-server xray-plugin xray trojan microsocks ipt2socks dns2socks pdnsd
+    killall -q -9 ss-redir ss-local obfs-local ssr-redir ssr-local ssr-server xray-plugin xray hysteria trojan microsocks ipt2socks dns2socks pdnsd
 
     if [ -f "/tmp/dnsmasq.d/dnsmasq-ssr.conf" ]; then
         rm -rf /tmp/dnsmasq.d/dnsmasq-ssr.conf /tmp/dnsmasq.ssr /tmp/dnsmasq.oversea
         /etc/init.d/dnsmasq restart >/dev/null 2>&1
     fi
     del_cron
+
+    unset_lock
 }
