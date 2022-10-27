@@ -7,24 +7,22 @@ PKG_RELEASE:=77
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Server \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Client \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Client \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Client \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Client \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Server \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs_server \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_plugin \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray: \
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Xray \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Trojan \
-	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Trojan-Go \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun \
+	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Socks5_Proxy \
 	CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_Socks_Server
 
-LUCI_TITLE:=SS/SSR/Xray/Trojan/Trojan-Go/NaiveProxy/Socks5/Tun LuCI interface
+LUCI_TITLE:=SS/SSR/Xray/Trojan/NaiveProxy/Socks5/Tun LuCI interface
 LUCI_PKGARCH:=all
-LUCI_DEPENDS:=+ipset +ip-full +iptables-mod-tproxy +dnsmasq-full +smartdns +coreutils +coreutils-base64 +curl +tcping +chinadns-ng +lua +luci-compat +unzip +lua-maxminddb \
+LUCI_DEPENDS:=+ipset +kmod-ipt-nat +ip-full +iptables-mod-tproxy +lua-neturl +dnsmasq-full +smartdns +coreutils +coreutils-base64 +curl +tcping +chinadns-ng +lua +luci-compat +luci-lib-ipkg +unzip +lua-maxminddb \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Server:shadowsocks-libev-ss-server \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Client:shadowsocks-libev-ss-local \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Client:shadowsocks-libev-ss-redir \
@@ -32,41 +30,36 @@ LUCI_DEPENDS:=+ipset +ip-full +iptables-mod-tproxy +dnsmasq-full +smartdns +core
 	+PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Client:shadowsocksr-libev-ssr-redir \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Server:shadowsocksr-libev-ssr-server \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs:simple-obfs \
-	+PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs_server:simple-obfs-server \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_plugin:v2ray-plugin \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Xray:xray-core \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Trojan:trojan-plus \
-	+PACKAGE_$(PKG_NAME)_INCLUDE_Trojan-Go:trojan-go \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy:naiveproxy \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun:kcptun-client \
+	+PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria:hysteria \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Socks5_Proxy:redsocks2 \
 	+PACKAGE_$(PKG_NAME)_INCLUDE_Socks_Server:microsocks
 
 define Package/$(PKG_NAME)/config
+
 config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Client
 	bool "Include Shadowsocks Libev Client"
-	default y
+	default y if i386||x86_64||arm||aarch64
+
+config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Server
+	bool "Include Shadowsocks Libev Server"
+	default y if i386||x86_64||arm||aarch64
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Client
 	bool "Include ShadowsocksR Libev Client"
 	default y
 
-config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Server
-	bool "Include Shadowsocks Libev Server"
-	default y
-
 config PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR_Libev_Server
 	bool "Include ShadowsocksR Libev Server"
-	default y
+	default y if i386||x86_64||aarch64
 
-config PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs
-	bool "Include Shadowsocks Simple-obfs Plugin"
+config PACKAGE_$(PKG_NAME)_INCLUDE_Simple_Obfs
+	bool "Include Shadowsocks Simple Obfs Plugin"
 	default y
-
-config PACKAGE_$(PKG_NAME)_INCLUDE_Simple_obfs_server
-	bool "Include Shadowsocks Simple-obfs-server Plugin"
-	depends on PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev_Server
-	default n
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_V2ray_plugin
 	bool "Include Shadowsocks V2ray Plugin"
@@ -78,11 +71,7 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_Xray
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_Trojan
 	bool "Include Trojan"
-	default y
-
-config PACKAGE_$(PKG_NAME)_INCLUDE_Trojan-Go
-	bool "Include Trojan Go"
-	default y
+	default y if i386||x86_64||arm||aarch64
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_NaiveProxy
 	bool "Include NaiveProxy"
@@ -93,9 +82,13 @@ config PACKAGE_$(PKG_NAME)_INCLUDE_Kcptun
 	bool "Include Kcptun"
 	default n
 
+config PACKAGE_$(PKG_NAME)_INCLUDE_Hysteria
+	bool "Include Hysteria"
+	default n
+
 config PACKAGE_$(PKG_NAME)_INCLUDE_Socks5_Proxy
 	bool "Include Socks5 Transparent Proxy"
-	default y
+	default n
 
 config PACKAGE_$(PKG_NAME)_INCLUDE_Socks_Server
 	bool "Include Socks Sever"

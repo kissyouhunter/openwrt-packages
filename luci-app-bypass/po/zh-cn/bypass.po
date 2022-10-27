@@ -4,8 +4,8 @@ msgstr "基本设置"
 msgid "Bypass Settings"
 msgstr "Bypass 设置"
 
-msgid "Support SS/SSR/XRAY/TROJAN/TROJAN-GO/NAIVEPROXY/SOCKS5/TUN etc."
-msgstr "支持 SS/SSR/Xray/Trojan/Trojan-Go/NavieProxy/Socks5/TUN 等协议"
+msgid "Support SS/SSR/XRAY/TROJAN/NAIVEPROXY/SOCKS5/TUN etc."
+msgstr "支持 SS/SSR/Xray/Trojan/NavieProxy/Socks5/TUN 等协议"
 
 msgid "Bypass RUNNING"
 msgstr "Bypass 客户端运行中"
@@ -181,17 +181,14 @@ msgstr "SS/SSR/V2/TROJAN订阅URL"
 msgid "Subscribe Filter Words"
 msgstr "订阅节点关键字过滤"
 
+msgid "Subscribe Save Words"
+msgstr "订阅节点关键字保留检查"
+
 msgid "Filter Words splited by /"
-msgstr "命中关键字的节点将被丢弃或保留。多个关键字用 / 分隔"
+msgstr "命中关键字的节点将被丢弃。多个关键字用 / 分隔"
 
-msgid "Filter Words Mode"
-msgstr "节点关键字过滤模式"
-
-msgid "Discard Mode"
-msgstr "丢弃命中关键词的节点"
-
-msgid "Keep Mode"
-msgstr "保留命中关键词的节点"
+msgid "Save Words splited by /"
+msgstr "命中关键字的节点将被保留。多个关键字用 / 分隔。此项为空则不启用保留匹配"
 
 msgid "Update Subscribe List"
 msgstr "更新订阅URL列表"
@@ -304,13 +301,28 @@ msgstr "插件参数"
 msgid "Protocol"
 msgstr "传输协议"
 
-msgid "Protocol param(optional)"
+msgid "Protocol param (optional)"
 msgstr "传输协议参数（可选）"
+
+msgid "Authentication type"
+msgstr "验证类型"
+
+msgid "Authentication payload"
+msgstr "验证载荷"
+
+msgid "QUIC connection receive window"
+msgstr "QUIC 连接接收窗口"
+
+msgid "QUIC stream receive window"
+msgstr "QUIC 流接收窗口"
+
+msgid "Disable Path MTU discovery"
+msgstr "禁用 MTU 探测"
 
 msgid "Obfs"
 msgstr "混淆插件"
 
-msgid "Obfs param(optional)"
+msgid "Obfs param (optional)"
 msgstr "混淆参数（可选）"
 
 msgid "VLESS Encryption"
@@ -723,3 +735,5 @@ msgstr "与AdGuardHome搭配使用"
 
 msgid "Luci-app-adguardhome require"
 msgstr "请确保luci-app-adguardhome能正常启用,本插件会联动开启并配置ADG,ADG无需任何设置"
+
+
